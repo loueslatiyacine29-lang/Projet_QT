@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1920</width>
+    <height>1080</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1920</width>
+      <height>1080</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:#D3D3D3</string>
+    </property>
+    <property name="currentIndex">
+     <number>1</number>
+    </property>
+    <widget class="QWidget" name="SALLE">
+     <attribute name="title">
+      <string>SALLE</string>
+     </attribute>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>20</y>
+        <width>171</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>ID SALLE</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="id_salle">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>20</y>
+        <width>231</width>
+        <height>61</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>110</y>
+        <width>171</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>NOM</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="nom_salle">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>110</y>
+        <width>231</width>
+        <height>61</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>190</y>
+        <width>171</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>NUMERO</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="numero_salle">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>200</y>
+        <width>231</width>
+        <height>61</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>290</y>
+        <width>171</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CAPACITE</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="capacite_salle">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>300</y>
+        <width>231</width>
+        <height>61</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="type_salle">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>390</y>
+        <width>221</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>CLASSIQUE</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>INFORMATIQUE</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>LABORATOIRE</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>REUNION</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>AMPHITHEATRE</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>ATELIER</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>390</y>
+        <width>171</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TYPE DE SALLE</string>
+      </property>
+     </widget>
+     <widget class="QTableView" name="tableView_salle">
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>170</y>
+        <width>900</width>
+        <height>471</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bt_ajouter_salle">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>510</y>
+        <width>161</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Ajouter</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bt_modifier_salle">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>510</y>
+        <width>121</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Modifier</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bt_supprimer_salle">
+      <property name="geometry">
+       <rect>
+        <x>360</x>
+        <y>510</y>
+        <width>191</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Supprimer</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bt_pdf_salle">
+      <property name="geometry">
+       <rect>
+        <x>600</x>
+        <y>670</y>
+        <width>191</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PDF</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bt_stat_salle">
+      <property name="geometry">
+       <rect>
+        <x>910</x>
+        <y>670</y>
+        <width>191</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>STATISTIQUE</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bt_tri_salle">
+      <property name="geometry">
+       <rect>
+        <x>600</x>
+        <y>90</y>
+        <width>191</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TRI</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="ordre_tri_salle">
+      <property name="geometry">
+       <rect>
+        <x>830</x>
+        <y>90</y>
+        <width>171</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>ASCENDANT</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>DESCENDANT</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QComboBox" name="choix_salle">
+      <property name="geometry">
+       <rect>
+        <x>1030</x>
+        <y>90</y>
+        <width>171</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>ID_SALLE</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>NOM</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>NUMERO</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>CAPACITE</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>TYPE_SALLE</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="bt_chercher_salle">
+      <property name="geometry">
+       <rect>
+        <x>1240</x>
+        <y>90</y>
+        <width>191</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CHERCHER</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="chercher_text_salle">
+      <property name="geometry">
+       <rect>
+        <x>1240</x>
+        <y>30</y>
+        <width>181</width>
+        <height>51</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="COUR">
+     <attribute name="title">
+      <string>COUR</string>
+     </attribute>
+     <widget class="QPushButton" name="bt_modifier_cour">
+      <property name="geometry">
+       <rect>
+        <x>690</x>
+        <y>650</y>
+        <width>191</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Modifier</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>380</y>
+        <width>171</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>DATE DE FIN</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="chercher_text_cour">
+      <property name="geometry">
+       <rect>
+        <x>1210</x>
+        <y>20</y>
+        <width>181</width>
+        <height>51</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="ordre_tri_cour">
+      <property name="geometry">
+       <rect>
+        <x>800</x>
+        <y>80</y>
+        <width>171</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>ASCENDANT</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>DESCENDANT</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="bt_supprimer_cour">
+      <property name="geometry">
+       <rect>
+        <x>910</x>
+        <y>650</y>
+        <width>191</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Supprimer</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bt_ajouter_cour">
+      <property name="geometry">
+       <rect>
+        <x>510</x>
+        <y>650</y>
+        <width>161</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Ajouter</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>100</y>
+        <width>171</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>NOM</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="niveau_cour">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>560</y>
+        <width>221</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>DEBUTANT</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>INTERMEDIAIRE</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>AVANCE</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>EXPERT</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QTableView" name="tableView_cour">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>160</y>
+        <width>900</width>
+        <height>471</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="description_cour">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>190</y>
+        <width>231</width>
+        <height>61</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="choix_cour">
+      <property name="geometry">
+       <rect>
+        <x>1000</x>
+        <y>80</y>
+        <width>171</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>ID_COUR</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>NOM</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>DESCRIPTION</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>DATE_DEBUT</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>DATE_FIN</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>PRIX</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>NIVEAU</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>ID_SALLE</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>280</y>
+        <width>171</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>DATE DE DEBUT</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bt_chercher_cour">
+      <property name="geometry">
+       <rect>
+        <x>1210</x>
+        <y>80</y>
+        <width>191</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CHERCHER</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>10</y>
+        <width>171</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>ID COUR</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="nom_cour">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>100</y>
+        <width>231</width>
+        <height>61</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="id_cour">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>10</y>
+        <width>231</width>
+        <height>61</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bt_pdf_cour">
+      <property name="geometry">
+       <rect>
+        <x>1110</x>
+        <y>650</y>
+        <width>191</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PDF</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>180</y>
+        <width>171</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>DESCRIPTION</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bt_tri_cour">
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>80</y>
+        <width>191</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TRI</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bt_stat_cour">
+      <property name="geometry">
+       <rect>
+        <x>1320</x>
+        <y>650</y>
+        <width>191</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>STATISTIQUE</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>470</y>
+        <width>171</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PRIX</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="prix_cour">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>480</y>
+        <width>231</width>
+        <height>61</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>560</y>
+        <width>171</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>NIVEAU</string>
+      </property>
+     </widget>
+     <widget class="QDateEdit" name="debut_cour">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>290</y>
+        <width>221</width>
+        <height>61</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDateEdit" name="fin_cour">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>390</y>
+        <width>221</width>
+        <height>61</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>660</y>
+        <width>171</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>ID SALLE</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="id_salle_cour">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>660</y>
+        <width>221</width>
+        <height>71</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1920</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
