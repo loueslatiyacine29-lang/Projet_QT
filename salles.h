@@ -3,7 +3,7 @@
 
 #include <QString>
 #include <QDate>
-
+#include <QSqlQueryModel>
 class SALLES
 {
 public:
@@ -24,6 +24,18 @@ public:
 
     void setTypeSalle(QString type_salle);
     QString getTypeSalle();
+
+    //CRUD
+    bool ajouter();
+    bool modifier();
+    bool supprimer(int id);
+    QSqlQueryModel* afficher();
+
+    bool idExists(int id);
+    QSqlQueryModel* chercher(QString column, QString text);
+    QSqlQueryModel* tri(QString column, QString choix);
+
+
 
 private:
     int ID_SALLE;

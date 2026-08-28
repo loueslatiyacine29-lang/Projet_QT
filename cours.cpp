@@ -1,5 +1,6 @@
 #include "cours.h"
-
+#include "qsqlquery.h"
+#include <QSqlQueryModel>
 COURS::COURS() {}
 
 COURS::COURS(int ID_COUR, QString NOM, QString DESCRIPTION, QDate DATE_DEBUT, QDate DATE_FIN, int PRIX, QString NIVEAU, int ID_SALLE)
@@ -93,3 +94,23 @@ int COURS::GET_ID_SALLE()
 {
     return ID_SALLE;
 }
+
+
+
+QList<int> COURS::ListIdSalle(){
+    QList<int> Liste;
+
+    QSqlQuery query;
+    query.prepare("SELECT ID_COUR FROM COURS ");
+    if(query.exec())
+    {
+        while(query.next())
+        {
+            Liste.append(query.value(0).toInt());
+        }
+    }
+    return Liste;
+
+}
+
+

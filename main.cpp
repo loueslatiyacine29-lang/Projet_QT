@@ -2,14 +2,28 @@
 
 #include <QApplication>
 #include <QMessageBox>
-#include "connexion.h"
+#include "connection.h"
 #include <QPointer>
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Connexion c;
 
-    bool test=c.createconnexion();
+    // Try to create/open the database connection and show a debug popup
+    Connection *cnx = Connection::instance();
+    bool test = false;
+    if (cnx) {
+        test = cnx->createConnect();
+    }
+
+    // Show a French debug popup indicating connection success/failure
+    if (test) {
+        QMessageBox::information(nullptr, QStringLiteral("Base de données"), QStringLiteral("Connexion réussie"));
+    } else {
+        QMessageBox::warning(nullptr, QStringLiteral("Base de données"), QStringLiteral("Échec de la connexion"));
+    }
+
+
+
     MainWindow w;
     if(test)
     {w.show();

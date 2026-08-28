@@ -33,6 +33,7 @@ public:
 
     void SET_ID_SALLE(int ID_SALLE);
     int GET_ID_SALLE();
+    QList<int> ListIdSalle();
 
 private:
     int ID_COUR;
