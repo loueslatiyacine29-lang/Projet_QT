@@ -336,3 +336,24 @@ QList<int> COURS::ListIdSalle()
 
     return list;
 }
+
+// =========================
+// STAT
+// =========================
+
+QMap<QString, int> COURS::statistiquesParNiveau() {
+    QMap<QString, int> NiveauStats;
+
+    QSqlQuery query;
+    query.prepare("SELECT NIVEAU, COUNT(*) as count FROM COURS GROUP BY NIVEAU");
+
+    if (query.exec()) {
+        while (query.next()) {
+            QString Niveau = query.value(0).toString();
+            int count = query.value(1).toInt();
+            NiveauStats[Niveau] = count;
+        }
+    }
+
+    return NiveauStats;
+}

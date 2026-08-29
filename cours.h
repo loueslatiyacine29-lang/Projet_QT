@@ -59,6 +59,8 @@ public:
     // Liste des salles
     QList<int> ListIdSalle();
 
+    QMap<QString, int> statistiquesParNiveau() ;
+
 private:
     int ID_COUR;
     QString NOM;

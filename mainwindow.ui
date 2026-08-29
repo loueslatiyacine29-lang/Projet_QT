@@ -27,7 +27,7 @@
      <string notr="true">background-color:#D3D3D3</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="SALLE">
      <attribute name="title">

@@ -35,6 +35,7 @@ public:
     QSqlQueryModel* chercher(QString column, QString text);
     QSqlQueryModel* tri(QString column, QString choix);
 
+    QMap<QString, int> statistiquesParType() ;
 
 
 private:

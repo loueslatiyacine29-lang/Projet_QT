@@ -1,6 +1,17 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QMessageBox>
+#include <QPieSeries>
+#include <QChart>
+#include <QChartView>
+#include <QVBoxLayout>
+
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QPrinter>
+#include <QTextDocument>
+#include <QTextStream>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -454,6 +465,304 @@ void MainWindow::remplir_comboBox_SALLE()
         void MainWindow::on_bt_refresh_cour_clicked()
         {
             ui->tableView_cour->setModel(c.afficher());
+
+        }
+
+
+        void MainWindow::on_bt_stat_salle_clicked()
+        {
+            QMap<QString, int> stats = s.statistiquesParType();
+
+            QPieSeries *series = new QPieSeries();
+
+            // Calcul du nombre total de Salle
+            int total = 0;
+            for (auto it = stats.begin(); it != stats.end(); ++it) {
+                total += it.value();
+            }
+
+            // Ajouter les données au graphique
+            for (auto it = stats.begin(); it != stats.end(); ++it) {
+
+                double pourcentage = (total > 0)
+                ? (it.value() * 100.0 / total)
+                : 0;
+
+                QPieSlice *slice = series->append(
+                    QString("%1 : %2 Salles (%3%)")
+                        .arg(it.key())
+                        .arg(it.value())
+                        .arg(QString::number(pourcentage, 'f', 1)),
+                    it.value()
+                    );
+
+                // Afficher le pourcentage sur la part
+                slice->setLabelVisible(true);
+
+                // Mettre légèrement en évidence la part
+                slice->setExploded(true);
+                slice->setExplodeDistanceFactor(0.05);
+            }
+
+            // Création du graphique
+            QChart *chart = new QChart();
+            chart->addSeries(series);
+
+            chart->setTitle(
+                QString("Statistiques des salles par type — Total : %1 type")
+                    .arg(total)
+                );
+
+            chart->setAnimationOptions(QChart::SeriesAnimations);
+
+            // Légende
+            chart->legend()->setVisible(true);
+            chart->legend()->setAlignment(Qt::AlignRight);
+
+            // Police du titre
+            QFont titleFont;
+            titleFont.setPointSize(14);
+            titleFont.setBold(true);
+            chart->setTitleFont(titleFont);
+
+            // Vue du graphique
+            QChartView *chartView = new QChartView(chart);
+            chartView->setRenderHint(QPainter::Antialiasing);
+
+            // Dialogue
+            QDialog *chartDialog = new QDialog(this);
+            chartDialog->setWindowTitle("Statistiques des Salles");
+            chartDialog->resize(750, 550);
+
+            QVBoxLayout *layout = new QVBoxLayout(chartDialog);
+            layout->setContentsMargins(15, 15, 15, 15);
+            layout->addWidget(chartView);
+
+            chartDialog->exec();
+        }
+
+        void MainWindow::on_bt_stat_cour_clicked()
+        {
+            QMap<QString, int> stats = c.statistiquesParNiveau();
+
+            QPieSeries *series = new QPieSeries();
+
+            // Calcul du nombre total de cours
+            int total = 0;
+            for (auto it = stats.begin(); it != stats.end(); ++it) {
+                total += it.value();
+            }
+
+            // Ajouter les données au graphique
+            for (auto it = stats.begin(); it != stats.end(); ++it) {
+
+                double pourcentage = (total > 0)
+                ? (it.value() * 100.0 / total)
+                : 0;
+
+                QPieSlice *slice = series->append(
+                    QString("%1 : %2 cours (%3%)")
+                        .arg(it.key())
+                        .arg(it.value())
+                        .arg(QString::number(pourcentage, 'f', 1)),
+                    it.value()
+                    );
+
+                // Afficher le pourcentage sur la part
+                slice->setLabelVisible(true);
+
+                // Mettre légèrement en évidence la part
+                slice->setExploded(true);
+                slice->setExplodeDistanceFactor(0.05);
+            }
+
+            // Création du graphique
+            QChart *chart = new QChart();
+            chart->addSeries(series);
+
+            chart->setTitle(
+                QString("Statistiques des cours par niveau — Total : %1 cours")
+                    .arg(total)
+                );
+
+            chart->setAnimationOptions(QChart::SeriesAnimations);
+
+            // Légende
+            chart->legend()->setVisible(true);
+            chart->legend()->setAlignment(Qt::AlignRight);
+
+            // Police du titre
+            QFont titleFont;
+            titleFont.setPointSize(14);
+            titleFont.setBold(true);
+            chart->setTitleFont(titleFont);
+
+            // Vue du graphique
+            QChartView *chartView = new QChartView(chart);
+            chartView->setRenderHint(QPainter::Antialiasing);
+
+            // Dialogue
+            QDialog *chartDialog = new QDialog(this);
+            chartDialog->setWindowTitle("Statistiques des Cours");
+            chartDialog->resize(750, 550);
+
+            QVBoxLayout *layout = new QVBoxLayout(chartDialog);
+            layout->setContentsMargins(15, 15, 15, 15);
+            layout->addWidget(chartView);
+
+            chartDialog->exec();
+        }
+
+        void MainWindow::on_bt_pdf_cour_clicked()
+        {
+            QString strStream;
+            QTextStream out(&strStream);
+
+            const int rowCount = ui->tableView_cour->model()->rowCount();
+            const int columnCount = ui->tableView_cour->model()->columnCount();
+
+            out << "<html>\n"
+                   "<head>\n"
+                   "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+                   "<title>%1</title>\n"
+                   "<style>\n"
+                   "table {\n"
+                   "    width: 100%;\n"
+                   "    border-collapse: collapse;\n"
+                   "}\n"
+                   "th, td {\n"
+                   "    padding: 8px;\n"
+                   "    text-align: left;\n"
+                   "    border-bottom: 1px solid #ddd;\n"
+                   "}\n"
+                   "tr:nth-child(even) {\n"
+                   "    background-color: #f2f2f2;\n"
+                   "}\n"
+                   "</style>\n"
+                   "</head>\n"
+                   "<body bgcolor=#ffffff link=#5000A0>\n"
+                   "<center> <H1>Liste des Cours</H1></center><br/><br/>\n"
+                   "<table>\n";
+
+            // headers
+            out << "<thead><tr bgcolor=#f0f0f0> <th>Numero</th>";
+            for (int column = 0; column < columnCount; column++)
+            {
+                if (!ui->tableView_cour->isColumnHidden(column))
+                {
+                    out << QString("<th>%1</th>").arg(ui->tableView_cour->model()->headerData(column, Qt::Horizontal).toString());
+                }
+            }
+            out << "</tr></thead>\n";
+
+            // data table
+            for (int row = 0; row < rowCount; row++)
+            {
+                out << "<tr> <td>" << row + 1 << "</td>";
+                for (int column = 0; column < columnCount; column++)
+                {
+                    if (!ui->tableView_cour->isColumnHidden(column))
+                    {
+                        QString data = ui->tableView_cour->model()->data(ui->tableView_cour->model()->index(row, column)).toString().simplified();
+                        out << QString("<td>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                    }
+                }
+                out << "</tr>\n";
+            }
+
+
+
+            QString fileName = QFileDialog::getSaveFileName((QWidget *)0, "Sauvegarder en PDF", QString(), "*.pdf");
+            if (QFileInfo(fileName).suffix().isEmpty())
+            {
+                fileName.append(".pdf");
+            }
+
+            QPrinter printer(QPrinter::PrinterResolution);
+            printer.setOutputFormat(QPrinter::PdfFormat);
+            printer.setPageSize(QPageSize::A4);
+            printer.setOutputFileName(fileName);
+
+            QTextDocument doc;
+            doc.setHtml(strStream);
+            doc.print(&printer);
+
+        }
+
+
+        void MainWindow::on_bt_pdf_salle_clicked()
+        {
+            QString strStream;
+            QTextStream out(&strStream);
+
+            const int rowCount = ui->tableView_salle->model()->rowCount();
+            const int columnCount = ui->tableView_salle->model()->columnCount();
+
+            out << "<html>\n"
+                   "<head>\n"
+                   "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+                   "<title>%1</title>\n"
+                   "<style>\n"
+                   "table {\n"
+                   "    width: 100%;\n"
+                   "    border-collapse: collapse;\n"
+                   "}\n"
+                   "th, td {\n"
+                   "    padding: 8px;\n"
+                   "    text-align: left;\n"
+                   "    border-bottom: 1px solid #ddd;\n"
+                   "}\n"
+                   "tr:nth-child(even) {\n"
+                   "    background-color: #f2f2f2;\n"
+                   "}\n"
+                   "</style>\n"
+                   "</head>\n"
+                   "<body bgcolor=#ffffff link=#5000A0>\n"
+                   "<center> <H1>Liste des Salles</H1></center><br/><br/>\n"
+                   "<table>\n";
+
+            // headers
+            out << "<thead><tr bgcolor=#f0f0f0> <th>Numero</th>";
+            for (int column = 0; column < columnCount; column++)
+            {
+                if (!ui->tableView_salle->isColumnHidden(column))
+                {
+                    out << QString("<th>%1</th>").arg(ui->tableView_salle->model()->headerData(column, Qt::Horizontal).toString());
+                }
+            }
+            out << "</tr></thead>\n";
+
+            // data table
+            for (int row = 0; row < rowCount; row++)
+            {
+                out << "<tr> <td>" << row + 1 << "</td>";
+                for (int column = 0; column < columnCount; column++)
+                {
+                    if (!ui->tableView_salle->isColumnHidden(column))
+                    {
+                        QString data = ui->tableView_salle->model()->data(ui->tableView_salle->model()->index(row, column)).toString().simplified();
+                        out << QString("<td>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                    }
+                }
+                out << "</tr>\n";
+            }
+
+
+
+            QString fileName = QFileDialog::getSaveFileName((QWidget *)0, "Sauvegarder en PDF", QString(), "*.pdf");
+            if (QFileInfo(fileName).suffix().isEmpty())
+            {
+                fileName.append(".pdf");
+            }
+
+            QPrinter printer(QPrinter::PrinterResolution);
+            printer.setOutputFormat(QPrinter::PdfFormat);
+            printer.setPageSize(QPageSize::A4);
+            printer.setOutputFileName(fileName);
+
+            QTextDocument doc;
+            doc.setHtml(strStream);
+            doc.print(&printer);
 
         }
 

@@ -48,6 +48,14 @@ private slots:
 
     void on_bt_refresh_cour_clicked();
 
+    void on_bt_stat_salle_clicked();
+
+    void on_bt_stat_cour_clicked();
+
+    void on_bt_pdf_cour_clicked();
+
+    void on_bt_pdf_salle_clicked();
+
 private:
     Ui::MainWindow *ui;
     SALLES s;

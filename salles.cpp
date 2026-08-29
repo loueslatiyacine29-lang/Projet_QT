@@ -149,3 +149,25 @@ QSqlQueryModel* SALLES::tri(QString column, QString choix)//(SALLES ASC)
     model->setQuery("SELECT * FROM SALLES ORDER BY " + column + " " + choix);
     return model;
 }
+
+
+// =========================
+// STAT
+// =========================
+
+QMap<QString, int> SALLES::statistiquesParType() {
+    QMap<QString, int> TypeStats;
+
+    QSqlQuery query;
+    query.prepare("SELECT TYPE_SALLE, COUNT(*) as count FROM SALLES GROUP BY TYPE_SALLE");
+
+    if (query.exec()) {
+        while (query.next()) {
+            QString Type = query.value(0).toString();
+            int count = query.value(1).toInt();
+            TypeStats[Type] = count;
+        }
+    }
+
+    return TypeStats;
+}
