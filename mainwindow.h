@@ -34,6 +34,20 @@ private slots:
 
     void on_bt_chercher_salle_clicked();
 
+    void on_bt_refresh_clicked();
+
+    void on_bt_ajouter_cour_clicked();
+
+    void on_bt_modifier_cour_clicked();
+
+    void on_bt_supprimer_cour_clicked();
+
+    void on_bt_tri_cour_clicked();
+
+    void on_bt_chercher_cour_clicked();
+
+    void on_bt_refresh_cour_clicked();
+
 private:
     Ui::MainWindow *ui;
     SALLES s;

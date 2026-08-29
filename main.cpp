@@ -1,44 +1,26 @@
 #include "mainwindow.h"
-
+#include "Connexion.h"
 #include <QApplication>
 #include <QMessageBox>
-#include "connection.h"
-#include <QPointer>
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    // Try to create/open the database connection and show a debug popup
-    Connection *cnx = Connection::instance();
-    bool test = false;
-    if (cnx) {
-        test = cnx->createConnect();
-    }
-
-    // Show a French debug popup indicating connection success/failure
-    if (test) {
-        QMessageBox::information(nullptr, QStringLiteral("Base de données"), QStringLiteral("Connexion réussie"));
+    Connexion connexion;
+    bool test=connexion.createconnexion();
+        MainWindow w;
+    if (!test) {
+        QString err = connexion.getLastError();
+        QString msg = "La connexion à la base de données a échoué.";
+        if (!err.isEmpty()) {
+            msg += "\n\nDétails : " + err;
+        }
+        QMessageBox::critical(nullptr, "Base de données Echec", msg);
+        return -1; // Stop application if database fails
     } else {
-        QMessageBox::warning(nullptr, QStringLiteral("Base de données"), QStringLiteral("Échec de la connexion"));
+        QMessageBox::information(nullptr, "Base de données Succès", "Connexion réussie à la base de données !");
     }
-
-
-
-    MainWindow w;
-    if(test)
-    {w.show();
-
-        QMessageBox::information(nullptr, QObject::tr("database is  open"),
-                                 QObject::tr("connection succefull.\n"
-                                             "Click Cancel to exit."), QMessageBox::Cancel);
-
-
-
-    }
-    else
-        QMessageBox::critical(nullptr, QObject::tr("database is not open"),
-                              QObject::tr("connection failed.\n"
-                                          "Click Cancel to exit."), QMessageBox::Cancel);
 
 
     w.show();

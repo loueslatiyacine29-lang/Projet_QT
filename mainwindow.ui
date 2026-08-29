@@ -344,6 +344,19 @@
        </rect>
       </property>
      </widget>
+     <widget class="QPushButton" name="bt_refresh">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>20</y>
+        <width>161</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>REFRESH</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="COUR">
      <attribute name="title">
@@ -732,6 +745,19 @@
         <width>221</width>
         <height>71</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bt_refresh_cour">
+      <property name="geometry">
+       <rect>
+        <x>600</x>
+        <y>10</y>
+        <width>161</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>REFRESH</string>
       </property>
      </widget>
     </widget>
