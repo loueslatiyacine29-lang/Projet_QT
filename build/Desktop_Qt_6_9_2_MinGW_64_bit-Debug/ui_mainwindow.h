@@ -54,6 +54,7 @@ public:
     QPushButton *bt_chercher_salle;
     QLineEdit *chercher_text_salle;
     QPushButton *bt_refresh;
+    QPushButton *bt_historique;
     QWidget *COUR;
     QPushButton *bt_modifier_cour;
     QLabel *label_6;
@@ -83,6 +84,7 @@ public:
     QLabel *label_13;
     QComboBox *id_salle_cour;
     QPushButton *bt_refresh_cour;
+    QPushButton *bt_qrcode;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -178,6 +180,9 @@ public:
         bt_refresh = new QPushButton(SALLE);
         bt_refresh->setObjectName("bt_refresh");
         bt_refresh->setGeometry(QRect(620, 20, 161, 51));
+        bt_historique = new QPushButton(SALLE);
+        bt_historique->setObjectName("bt_historique");
+        bt_historique->setGeometry(QRect(1180, 670, 191, 61));
         tabWidget->addTab(SALLE, QString());
         COUR = new QWidget();
         COUR->setObjectName("COUR");
@@ -189,7 +194,7 @@ public:
         label_6->setGeometry(QRect(40, 380, 171, 71));
         chercher_text_cour = new QLineEdit(COUR);
         chercher_text_cour->setObjectName("chercher_text_cour");
-        chercher_text_cour->setGeometry(QRect(1210, 20, 181, 51));
+        chercher_text_cour->setGeometry(QRect(1020, 10, 181, 51));
         ordre_tri_cour = new QComboBox(COUR);
         ordre_tri_cour->addItem(QString());
         ordre_tri_cour->addItem(QString());
@@ -227,13 +232,13 @@ public:
         choix_cour->addItem(QString());
         choix_cour->addItem(QString());
         choix_cour->setObjectName("choix_cour");
-        choix_cour->setGeometry(QRect(1000, 80, 171, 61));
+        choix_cour->setGeometry(QRect(800, 10, 171, 61));
         label_8 = new QLabel(COUR);
         label_8->setObjectName("label_8");
         label_8->setGeometry(QRect(40, 280, 171, 71));
         bt_chercher_cour = new QPushButton(COUR);
         bt_chercher_cour->setObjectName("bt_chercher_cour");
-        bt_chercher_cour->setGeometry(QRect(1210, 80, 191, 61));
+        bt_chercher_cour->setGeometry(QRect(1020, 80, 191, 61));
         label_9 = new QLabel(COUR);
         label_9->setObjectName("label_9");
         label_9->setGeometry(QRect(40, 10, 171, 71));
@@ -279,6 +284,9 @@ public:
         bt_refresh_cour = new QPushButton(COUR);
         bt_refresh_cour->setObjectName("bt_refresh_cour");
         bt_refresh_cour->setGeometry(QRect(600, 10, 161, 51));
+        bt_qrcode = new QPushButton(COUR);
+        bt_qrcode->setObjectName("bt_qrcode");
+        bt_qrcode->setGeometry(QRect(1270, 50, 191, 61));
         tabWidget->addTab(COUR, QString());
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
@@ -291,7 +299,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -329,7 +337,8 @@ public:
 
         bt_chercher_salle->setText(QCoreApplication::translate("MainWindow", "CHERCHER", nullptr));
         bt_refresh->setText(QCoreApplication::translate("MainWindow", "REFRESH", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(SALLE), QCoreApplication::translate("MainWindow", "SALLE", nullptr));
+        bt_historique->setText(QCoreApplication::translate("MainWindow", "HISTORIQUE", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(SALLE), QCoreApplication::translate("MainWindow", "GESTION SALLE", nullptr));
         bt_modifier_cour->setText(QCoreApplication::translate("MainWindow", "Modifier", nullptr));
         label_6->setText(QCoreApplication::translate("MainWindow", "DATE DE FIN", nullptr));
         ordre_tri_cour->setItemText(0, QCoreApplication::translate("MainWindow", "ASCENDANT", nullptr));
@@ -363,7 +372,8 @@ public:
         label_12->setText(QCoreApplication::translate("MainWindow", "NIVEAU", nullptr));
         label_13->setText(QCoreApplication::translate("MainWindow", "ID SALLE", nullptr));
         bt_refresh_cour->setText(QCoreApplication::translate("MainWindow", "REFRESH", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(COUR), QCoreApplication::translate("MainWindow", "COUR", nullptr));
+        bt_qrcode->setText(QCoreApplication::translate("MainWindow", "QRCODE", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(COUR), QCoreApplication::translate("MainWindow", "GESTION COUR", nullptr));
     } // retranslateUi
 
 };

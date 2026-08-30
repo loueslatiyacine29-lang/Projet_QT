@@ -60,7 +60,12 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         "on_bt_stat_salle_clicked",
         "on_bt_stat_cour_clicked",
         "on_bt_pdf_cour_clicked",
-        "on_bt_pdf_salle_clicked"
+        "on_bt_pdf_salle_clicked",
+        "on_bt_historique_clicked",
+        "addToHistory",
+        "action",
+        "SalleNom",
+        "on_bt_qrcode_clicked"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -106,6 +111,14 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         QtMocHelpers::SlotData<void()>(21, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_bt_pdf_salle_clicked'
         QtMocHelpers::SlotData<void()>(22, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'on_bt_historique_clicked'
+        QtMocHelpers::SlotData<void()>(23, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'addToHistory'
+        QtMocHelpers::SlotData<void(const QString &, const QString &)>(24, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::QString, 25 }, { QMetaType::QString, 26 },
+        }}),
+        // Slot 'on_bt_qrcode_clicked'
+        QtMocHelpers::SlotData<void()>(27, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -148,6 +161,9 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 16: _t->on_bt_stat_cour_clicked(); break;
         case 17: _t->on_bt_pdf_cour_clicked(); break;
         case 18: _t->on_bt_pdf_salle_clicked(); break;
+        case 19: _t->on_bt_historique_clicked(); break;
+        case 20: _t->addToHistory((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2]))); break;
+        case 21: _t->on_bt_qrcode_clicked(); break;
         default: ;
         }
     }
@@ -172,14 +188,14 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 19)
+        if (_id < 22)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 19;
+        _id -= 22;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 19)
+        if (_id < 22)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 19;
+        _id -= 22;
     }
     return _id;
 }

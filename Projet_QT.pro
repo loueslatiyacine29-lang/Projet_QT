@@ -13,13 +13,15 @@ SOURCES += \
     cours.cpp \
     main.cpp \
     mainwindow.cpp \
-    salles.cpp
+    salles.cpp \
+    Qrcode.cpp
 
 HEADERS += \
     Connexion.h \
     cours.h \
     mainwindow.h \
-    salles.h
+    salles.h \
+    Qrcode.hpp
 
 FORMS += \
     mainwindow.ui

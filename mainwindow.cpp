@@ -11,7 +11,9 @@
 #include <QPrinter>
 #include <QTextDocument>
 #include <QTextStream>
-
+#include "Qrcode.hpp"
+// Generate QR code
+using namespace qrcodegen;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -82,6 +84,10 @@ void MainWindow::on_bt_ajouter_salle_clicked()
         ui->numero_salle->clear();
         ui->tableView_salle->setModel(s.afficher());
         remplir_comboBox_SALLE();
+
+
+        // Enregistrer l'ajout dans l'historique
+        addToHistory("Ajout du salle", QString::number(id_salle));
     }
     else
     {
@@ -182,6 +188,9 @@ void MainWindow::remplir_comboBox_SALLE()
                     ui->numero_salle->clear();
                     ui->tableView_salle->setModel(s.afficher());
                     remplir_comboBox_SALLE();
+
+                    // Enregistrer l'opération d'update dans l'historique
+                    addToHistory("Mise à jour du salle", QString::number(id_salle));
                 }
                 else
                 {
@@ -211,6 +220,8 @@ void MainWindow::remplir_comboBox_SALLE()
                 ui->numero_salle->clear();
                 ui->tableView_salle->setModel(s.afficher());
                 remplir_comboBox_SALLE();
+
+                addToHistory("Suppression du salle", QString::number(id_salle));
 
             }
 
@@ -765,4 +776,295 @@ void MainWindow::remplir_comboBox_SALLE()
             doc.print(&printer);
 
         }
+
+
+        void MainWindow::on_bt_historique_clicked()
+        {
+            QString filePath = "/Users/MSI/Documents/Projet_QT/historique_salles.txt";
+            QFile file(filePath);
+
+            // Vérifier si le fichier peut être ouvert en mode lecture
+            if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                QMessageBox::critical(this, "Erreur", "Impossible d'ouvrir le fichier d'historique.");
+                return;
+            }
+
+            // Lire tout le contenu du fichier historique
+            QTextStream in(&file);
+            QString historyContent = in.readAll();
+
+            // Afficher le contenu dans une boîte de dialogue ou une zone de texte
+            QMessageBox::information(this, "Historique des salles", historyContent);
+
+            // Fermer le fichier
+            file.close();
+        }
+
+        void MainWindow::addToHistory(const QString &action, const QString &SalleNom)
+        {
+            // Chemin du fichier historique
+            QString filePath = "/Users/MSI/Documents/Projet_QT/historique_salles.txt";
+            QFile file(filePath);
+
+            // Ouvrir le fichier en mode ajout
+            if (!file.open(QIODevice::Append | QIODevice::Text)) {
+                qDebug() << "Erreur lors de l'ouverture du fichier historique.";
+                return;
+            }
+
+            // Créer un flux texte pour écrire dans le fichier
+            QTextStream out(&file);
+
+            // Obtenir la date et l'heure actuelles
+            QDateTime currentDateTime = QDateTime::currentDateTime();
+
+            // Écrire l'action dans le fichier historique avec la date et l'heure
+            out << currentDateTime.toString("yyyy-MM-dd hh:mm:ss") << " - " << action;
+            if (!SalleNom.isEmpty()) {
+                out << " pour le salle : " << SalleNom;
+            }
+            out << "\n";
+
+            // Fermer le fichier
+            file.close();
+        }
+
+        void MainWindow::on_bt_qrcode_clicked()
+        {
+            // Vérifier qu'une ligne est sélectionnée
+            QModelIndex index = ui->tableView_cour->currentIndex();
+
+            if (!index.isValid())
+            {
+                QMessageBox::warning(
+                    this,
+                    "QR Code",
+                    "Veuillez sélectionner un cours dans la table."
+                    );
+                return;
+            }
+
+            // Récupérer le modèle
+            QAbstractItemModel *model = ui->tableView_cour->model();
+
+            int row = index.row();
+
+            // ==========================================
+            // Récupération de toutes les informations
+            // ==========================================
+
+            QString id_cour =
+                model->data(model->index(row, 0)).toString();
+
+            QString nom =
+                model->data(model->index(row, 1)).toString();
+
+            QString description =
+                model->data(model->index(row, 2)).toString();
+
+            QDate debut =
+                model->data(model->index(row, 3)).toDate();
+
+            QDate fin =
+                model->data(model->index(row, 4)).toDate();
+
+            QString prix =
+                model->data(model->index(row, 5)).toString();
+
+            QString niveau =
+                model->data(model->index(row, 6)).toString();
+
+            QString id_salle =
+                model->data(model->index(row, 7)).toString();
+
+
+            // ==========================================
+            // Texte qui sera contenu dans le QR Code
+            // ==========================================
+
+            QString text =
+                "===== COURS =====\n"
+                "ID COUR : " + id_cour + "\n"
+                            "NOM : " + nom + "\n"
+                        "DESCRIPTION : " + description + "\n"
+                                "DATE DEBUT : " + debut.toString("dd/MM/yyyy") + "\n"
+                                                 "DATE FIN : " + fin.toString("dd/MM/yyyy") + "\n"
+                                               "PRIX : " + prix + "\n"
+                         "NIVEAU : " + niveau + "\n"
+                           "ID SALLE : " + id_salle + "\n"
+                             "=================";
+
+
+            // ==========================================
+            // Génération du QR Code
+            // ==========================================
+
+            using namespace qrcodegen;
+
+            QByteArray qrData = text.toUtf8();
+
+            QrCode qr = QrCode::encodeText(
+                qrData.constData(),
+                QrCode::Ecc::MEDIUM
+                );
+
+            int sz = qr.getSize();
+
+            QImage image(
+                sz,
+                sz,
+                QImage::Format_RGB32
+                );
+
+            QRgb black = qRgb(0, 0, 0);
+            QRgb white = qRgb(255, 255, 255);
+
+            // Dessiner le QR Code
+            for (int y = 0; y < sz; y++)
+            {
+                for (int x = 0; x < sz; x++)
+                {
+                    image.setPixel(
+                        x,
+                        y,
+                        qr.getModule(x, y)
+                            ? black
+                            : white
+                        );
+                }
+            }
+
+
+            // ==========================================
+            // Agrandir le QR Code
+            // ==========================================
+
+            QPixmap qrPixmap =
+                QPixmap::fromImage(image).scaled(
+                    350,
+                    350,
+                    Qt::KeepAspectRatio,
+                    Qt::FastTransformation
+                    );
+
+
+            // ==========================================
+            // Création du Dialog
+            // ==========================================
+
+            QDialog *dialog = new QDialog(this);
+
+            dialog->setWindowTitle(
+                "QR Code - Informations du cours"
+                );
+
+            dialog->resize(450, 600);
+
+
+            // ==========================================
+            // Création du VBoxLayout
+            // ==========================================
+
+            QVBoxLayout *vbox =
+                new QVBoxLayout(dialog);
+
+
+            // ==========================================
+            // Titre
+            // ==========================================
+
+            QLabel *titleLabel =
+                new QLabel("QR CODE DU COURS");
+
+            titleLabel->setAlignment(
+                Qt::AlignCenter
+                );
+
+            QFont titleFont;
+            titleFont.setBold(true);
+            titleFont.setPointSize(16);
+
+            titleLabel->setFont(titleFont);
+
+
+            // ==========================================
+            // QLabel pour le QR Code
+            // ==========================================
+
+            QLabel *qrLabel =
+                new QLabel();
+
+            qrLabel->setPixmap(qrPixmap);
+
+            qrLabel->setAlignment(
+                Qt::AlignCenter
+                );
+
+
+            // ==========================================
+            // Informations affichées sous le QR
+            // ==========================================
+
+            QString info =
+                "<b>ID COUR :</b> " + id_cour + "<br>"
+                                                "<b>NOM :</b> " + nom + "<br>"
+                        "<b>DESCRIPTION :</b> " + description + "<br>"
+                                "<b>DATE DEBUT :</b> " +
+                debut.toString("dd/MM/yyyy") + "<br>"
+                                               "<b>DATE FIN :</b> " +
+                fin.toString("dd/MM/yyyy") + "<br>"
+                                             "<b>PRIX :</b> " + prix + "<br>"
+                         "<b>NIVEAU :</b> " + niveau + "<br>"
+                           "<b>ID SALLE :</b> " + id_salle;
+
+
+            QLabel *infoLabel =
+                new QLabel(info);
+
+            infoLabel->setAlignment(
+                Qt::AlignCenter
+                );
+
+            infoLabel->setWordWrap(true);
+
+
+            // ==========================================
+            // Bouton Fermer
+            // ==========================================
+
+            QPushButton *closeButton =
+                new QPushButton("Fermer");
+
+
+            // ==========================================
+            // Ajouter dans le VBoxLayout
+            // ==========================================
+
+            vbox->addWidget(titleLabel);
+            vbox->addWidget(qrLabel);
+            vbox->addWidget(infoLabel);
+            vbox->addWidget(closeButton);
+
+
+            // ==========================================
+            // Fermer le dialog
+            // ==========================================
+
+            connect(
+                closeButton,
+                &QPushButton::clicked,
+                dialog,
+                &QDialog::accept
+                );
+
+
+            // ==========================================
+            // Afficher le Dialog
+            // ==========================================
+
+            dialog->exec();
+
+            delete dialog;
+        }
+
 

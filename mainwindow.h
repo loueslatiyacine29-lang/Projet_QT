@@ -56,6 +56,12 @@ private slots:
 
     void on_bt_pdf_salle_clicked();
 
+    void on_bt_historique_clicked();
+
+    void addToHistory(const QString &action, const QString &SalleNom);
+
+    void on_bt_qrcode_clicked();
+
 private:
     Ui::MainWindow *ui;
     SALLES s;

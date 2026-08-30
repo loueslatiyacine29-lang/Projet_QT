@@ -27,11 +27,11 @@
      <string notr="true">background-color:#D3D3D3</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="SALLE">
      <attribute name="title">
-      <string>SALLE</string>
+      <string>GESTION SALLE</string>
      </attribute>
      <widget class="QLabel" name="label">
       <property name="geometry">
@@ -357,10 +357,23 @@
        <string>REFRESH</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="bt_historique">
+      <property name="geometry">
+       <rect>
+        <x>1180</x>
+        <y>670</y>
+        <width>191</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>HISTORIQUE</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="COUR">
      <attribute name="title">
-      <string>COUR</string>
+      <string>GESTION COUR</string>
      </attribute>
      <widget class="QPushButton" name="bt_modifier_cour">
       <property name="geometry">
@@ -391,8 +404,8 @@
      <widget class="QLineEdit" name="chercher_text_cour">
       <property name="geometry">
        <rect>
-        <x>1210</x>
-        <y>20</y>
+        <x>1020</x>
+        <y>10</y>
         <width>181</width>
         <height>51</height>
        </rect>
@@ -510,8 +523,8 @@
      <widget class="QComboBox" name="choix_cour">
       <property name="geometry">
        <rect>
-        <x>1000</x>
-        <y>80</y>
+        <x>800</x>
+        <y>10</y>
         <width>171</width>
         <height>61</height>
        </rect>
@@ -573,7 +586,7 @@
      <widget class="QPushButton" name="bt_chercher_cour">
       <property name="geometry">
        <rect>
-        <x>1210</x>
+        <x>1020</x>
         <y>80</y>
         <width>191</width>
         <height>61</height>
@@ -758,6 +771,19 @@
       </property>
       <property name="text">
        <string>REFRESH</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bt_qrcode">
+      <property name="geometry">
+       <rect>
+        <x>1270</x>
+        <y>50</y>
+        <width>191</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>QRCODE</string>
       </property>
      </widget>
     </widget>
